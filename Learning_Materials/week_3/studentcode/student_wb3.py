@@ -43,37 +43,39 @@ class DepthFirstSearch(SingleMemberSearch):
         # <==== insert your pseudo-code and code above here
         return next_soln
 
-class BestFirstSearch(SingleMemberSearch):
-    """Implementation of Best-First search."""
+class BreadthFirstSearch(SingleMemberSearch):
+    """your implementation of depth first search to extend
+    the superclass SingleMemberSearch search.
+    Adds  a __str__method
+    Over-rides the method select_and_move_from_openlist
+    to implement the algorithm
+    """
 
     def __str__(self):
-        return "best-first"
+        return "breadth-first"
 
     def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements Best First by finding, popping and returning member from openlist
-        with best quality.
+        """Implements the breadth-first search algorithm
 
         Returns
         -------
         next working candidate (solution) taken from openlist
         """
-
         # create a candidate solution variable to hold the next solution
         next_soln = CandidateSolution()
 
         # ====> insert your pseudo-code and code below here
-        # Find the index of the candidate with the best quality in the openlist
-        if self.openlist:
-            best_index = 0
-            best_quality = self.openlist[0].quality
+        if len(self.open_list) == 0:
+            return next_soln
+        # SelectAndMoveFromOpenList()
+        # my_index ← GetFirstIndex(open_list)
+        my_index = 0
 
-            for i in range(1, len(self.openlist)):
-                if self.openlist[i].quality > best_quality:
-                    best_quality = self.openlist[i].quality
-                    best_index = i
+        # the_candidate ← open_list(my_index)
+        next_soln = self.open_list[my_index]
 
-            # Remove the best candidate from the openlist and return it
-            next_soln = self.openlist.pop(best_index)
+        # RemoveFromOpenList(my_index)
+        self.open_list.pop(my_index)
 
         # <==== insert your pseudo-code and code above here
         return next_soln
@@ -132,686 +134,6 @@ class AStarSearch(SingleMemberSearch):
         next_soln = CandidateSolution()
 
         # ====> insert your pseudo-code and code below here
-        # Find the index of the candidate with the best quality in the openlist
-        best_index = 0
-        best_quality = float('inf')
-        for i, candidate in enumerate(self.open_list):
-            if candidate.quality + len(candidate) < best_quality:
-                best_quality = candidate.quality + len(candidate)
-                best_index = i
-        # Get the candidate with the best quality from the openlist
-        next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # Find the index of the candidate with the best quality in the openlist
-        if self.openlist:
-            best_index = 0
-            # A* score = path cost (length) + heuristic (quality)
-            best_score = self.openlist[0].length + self.openlist[0].quality
-
-            for i in range(1, len(self.openlist)):
-                current_score = self.openlist[i].length + self.openlist[i].quality
-                if current_score < best_score:
-                    best_score = current_score
-                    best_index = i
-
-            # Remove the best candidate from the openlist and return it
-            next_soln = self.openlist.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # Find the index of the candidate with the best quality in the openlist
-        best_index = 0
-        best_quality = float('inf')
-        for i, candidate in enumerate(self.open_list):
-            if candidate.quality + len(candidate) < best_quality:
-                best_quality = candidate.quality + len(candidate)
-                best_index = i
-                # Get the candidate with the best quality from the openlist
-        next_soln = self.open_list.pop(best_index)
-        
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-            # Find the index of the candidate with the lowest combined score in the openlist
-        if self.openlist:
-            best_index = 0
-            # A* score = path cost (length) + heuristic (quality)
-            best_score = self.openlist[0].length + self.openlist[0].quality
-
-            for i in range(1, len(self.openlist)):
-                current_score = self.openlist[i].length + self.openlist[i].quality
-                if current_score < best_score:
-                    best_score = current_score
-                    best_index = i
-
-            # Remove the best candidate from the openlist and return it
-            next_soln = self.openlist.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # Find the index of the candidate with the lowest combined score in the open_list
-        if self.open_list:  # Note: using open_list instead of openlist
-            best_index = 0
-            # A* score = path cost (length) + heuristic (quality)
-            best_score = self.open_list[0].length + self.open_list[0].quality
-
-            for i in range(1, len(self.open_list)):
-                current_score = self.open_list[i].length + self.open_list[i].quality
-                if current_score < best_score:
-                    best_score = current_score
-                    best_index = i
-
-            # Remove the best candidate from the open_list and return it
-            next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        if self.open_list:
-            best_quality = self.open_list[0].quality + len(self.open_list[0].solution)
-            best_index = 0
-            for i, candidate in enumerate(self.open_list):
-                candidate_quality = candidate.quality + len(candidate.solution)
-                if candidate_quality < best_quality:
-                    best_quality = candidate_quality
-                    best_index = i
-
-            # Remove the candidate with the best quality from the openlist
-            next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        if len(self.openlist) == 0:
-            return next_soln
-
-        # Find the solution with minimum f(n) = g(n) + h(n)
-        # where g(n) is path length and h(n) is quality score
-        min_score = float('inf')
-        min_index = 0
-
-        for i, solution in enumerate(self.openlist):
-            # Calculate f(n) = g(n) + h(n)
-            f_score = solution.get_path_length() + solution.get_quality_score()
-            if f_score < min_score:
-                min_score = f_score
-                min_index = i
-
-        # Get the solution with minimum score and remove it from openlist
-        next_soln = self.openlist.pop(min_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        if len(self.open_list) == 0:
-            return next_soln
-
-        # Find the solution with minimum f(n) = g(n) + h(n)
-        # where g(n) is path length and h(n) is quality score
-        min_score = float('inf')
-        min_index = 0
-
-        for i, solution in enumerate(self.open_list):
-            # Calculate f(n) = g(n) + h(n)
-            f_score = solution.get_path_length() + solution.get_quality_score()
-            if f_score < min_score:
-                min_score = f_score
-                min_index = i
-
-        # Get the solution with minimum score and remove it from openlist
-        next_soln = self.open_list.pop(min_index)
-        
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        if len(self.open_list) == 0:
-            return next_soln
-
-        # Find the solution with minimum f(n) = g(n) + h(n)
-        # where g(n) is path length and h(n) is quality score
-        min_score = float('inf')
-        min_index = 0
-
-        for i, solution in enumerate(self.open_list):
-            # Calculate f(n) = g(n) + h(n)
-            # Using length() and quality() instead of get_path_length() and get_quality_score()
-            f_score = solution.length() + solution.quality()
-            if f_score < min_score:
-                min_score = f_score
-                min_index = i
-
-        # Get the solution with minimum score and remove it from openlist
-        next_soln = self.open_list.pop(min_index)
-
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        if len(self.open_list) == 0:
-            return next_soln
-
-        # Find the solution with minimum f(n) = g(n) + h(n)
-        # where g(n) is path length and h(n) is quality score
-        min_score = float('inf')
-        min_index = 0
-
-        for i, solution in enumerate(self.open_list):
-            # Calculate f(n) = g(n) + h(n)
-            # Using get_length() and get_quality() for path length and quality score
-            f_score = solution.get_length() + solution.get_quality()
-            if f_score < min_score:
-                min_score = f_score
-                min_index = i
-
-        # Get the solution with minimum score and remove it from openlist
-        next_soln = self.open_list.pop(min_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        if len(self.open_list) == 0:
-            return next_soln
-
-        # Find the solution with minimum f(n) = g(n) + h(n)
-        # where g(n) is path length and h(n) is quality score
-        min_score = float('inf')
-        min_index = 0
-
-        for i, solution in enumerate(self.open_list):
-            # Calculate f(n) = g(n) + h(n)
-            # Using path_length and quality for scoring
-            f_score = solution.path_length + solution.quality
-            if f_score < min_score:
-                min_score = f_score
-                min_index = i
-
-        # Get the solution with minimum score and remove it from openlist
-        next_soln = self.open_list.pop(min_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # Find the index of the candidate with the best quality in the openlist
-        best_index = 0
-        best_quality = float('inf')
-        for i, candidate in enumerate(self.open_list):
-            if candidate.quality + len(candidate) < best_quality:
-                best_quality = candidate.quality + len(candidate)
-                best_index = i
-                # Get the candidate with the best quality from the openlist
-        next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # Find the index of the candidate with the lowest combined score in the open_list
-        if self.open_list:  # Note: using open_list instead of openlist
-            best_index = 0
-            # A* score = path cost (length) + heuristic (quality)
-            best_score = self.open_list[0].length + self.open_list[0].quality
-
-            for i in range(1, len(self.open_list)):
-                current_score = self.open_list[i].length + self.open_list[i].quality
-                if current_score < best_score:
-                    best_score = current_score
-                    best_index = i
-
-            # Remove the best candidate from the open_list and return it
-            next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # If the open_list is empty, return None
-        if not self.open_list:
-            return None
-
-        # Find the index of the candidate with the lowest combined score
-        best_index = 0
-        # A* score = path cost (length) + heuristic (quality)
-        best_score = self.open_list[0].length + self.open_list[0].quality
-
-        for i in range(1, len(self.open_list)):
-            current_score = self.open_list[i].length + self.open_list[i].quality
-            if current_score < best_score:
-                best_score = current_score
-                best_index = i
-
-        # Remove the best candidate from the open_list and return it
-        next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-       # If the open_list is empty, return None
-        if not self.open_list:
-            return None
-
-        # Find the index of the candidate with the lowest combined score
-        best_index = 0
-        # A* score = path cost + heuristic (quality)
-        # Using path_cost instead of length based on the error
-        best_score = self.open_list[0].path_cost + self.open_list[0].quality
-
-        for i in range(1, len(self.open_list)):
-            current_score = self.open_list[i].path_cost + self.open_list[i].quality
-            if current_score < best_score:
-                best_score = current_score
-                best_index = i
-
-        # Remove the best candidate from the open_list and return it
-        next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # If the open_list is empty, return None
-        if not self.open_list:
-            return None
-
-        # Find the index of the candidate with the lowest combined score
-        best_index = 0
-
-        # Let's look at available attributes in the object
-        # Using "cost" as it's a common attribute name for path cost
-        best_score = self.open_list[0].cost + self.open_list[0].quality
-
-        for i in range(1, len(self.open_list)):
-            current_score = self.open_list[i].cost + self.open_list[i].quality
-            if current_score < best_score:
-                best_score = current_score
-                best_index = i
-
-        # Remove the best candidate from the open_list and return it
-        next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # If the open_list is empty, return None
-        if not self.open_list:
-            return None
-
-        # Without a path cost attribute, we'll use only the quality attribute
-        # (This effectively makes it Best-First Search)
-        best_index = 0
-        best_quality = self.open_list[0].quality
-
-        for i in range(1, len(self.open_list)):
-            if self.open_list[i].quality < best_quality:  # Lower quality is better in A*
-                best_quality = self.open_list[i].quality
-                best_index = i
-
-        # Remove the best candidate from the open_list and return it
-        next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
-        # Find the index of the candidate with the best quality in the openlist
-        if self.open_list:
-            best_quality = self.open_list[0].quality + len(self.open_list[0].solution)
-            best_index = 0
-            for i, candidate in enumerate(self.open_list):
-                if candidate.quality + len(candidate.solution) < best_quality:
-                    best_quality = candidate.quality + len(candidate.solution)
-                    best_index = i
-
-            # Remove the candidate with the best quality from the openlist
-            next_soln = self.open_list.pop(best_index)
-
-        # <==== insert your pseudo-code and code above here
-        return next_soln
-
-class AStarSearch(SingleMemberSearch):
-    """Implementation of A-Star  search."""
-
-    def __str__(self):
-        return "A Star"
-
-    def select_and_move_from_openlist(self) -> CandidateSolution:
-        """Implements A-Star by finding, popping and returning member from openlist
-        with lowest combined length+quality.
-
-        Returns
-        -------
-        next working candidate (solution) taken from openlist
-        """
-
-        # create a candidate solution variable to hold the next solution
-        next_soln = CandidateSolution()
-
-        # ====> insert your pseudo-code and code below here
         if len(self.open_list) == 0:
             return next_soln
 
@@ -832,3 +154,74 @@ class AStarSearch(SingleMemberSearch):
 
         # <==== insert your pseudo-code and code above here
         return next_soln
+wall_colour= 0.0
+hole_colour = 1.0
+
+def create_maze_breaks_depthfirst():
+    # ====> insert your code below here
+    #remember to comment out any mention of show_maze() before you submit your work
+    # Create maze that breaks depth-first search
+    maze = Maze(mazefile="maze.txt")
+
+    # Create a very deep path that leads to a dead end
+    # This will cause DFS to waste all its trials exploring this path
+    for i in range(2, 19):
+        maze.contents[i][10] = hole_colour  # Create a long vertical path downward
+
+    # Make the goal unreachable via the deep path
+    maze.contents[19][10] = wall_colour  # Block the path at the bottom
+
+    # Create an alternative longer path that leads to the goal
+    for i in range(11, 19):
+        maze.contents[2][i] = hole_colour  # Horizontal path
+
+    for i in range(3, 19):
+        maze.contents[i][19] = hole_colour  # Vertical path on the right side
+
+    # Create path to goal
+    maze.contents[19][11] = hole_colour
+    maze.contents[19][12] = hole_colour
+    maze.contents[20][12] = hole_colour
+
+    # Save maze to file
+    maze.save_to_txt("maze-breaks-depth.txt")
+
+    # <==== insert your code above here
+
+def create_maze_depth_better():
+    # ====> insert your code below here
+    #remember to comment out any mention of show_maze() before you submit your work
+    # Create maze where depth-first is more efficient
+    maze = Maze(mazefile="maze.txt")
+
+    # Create a direct path to the goal
+    # Position the path so it aligns with depth-first search's preference
+    # for exploring certain directions first
+
+    # Clear existing obstacles near the start
+    for i in range(5):
+        for j in range(9, 15):
+            if i > 0:  # Don't modify the top wall
+                maze.contents[i][j] = hole_colour
+
+    # Create a path that depth-first will find quickly
+    # This assumes depth-first prioritizes going down and right
+    for i in range(1, 21):
+        maze.contents[i][11] = hole_colour  # Create a direct vertical path
+
+    # Add some extra paths that will distract breadth-first
+    # but won't affect depth-first as much
+    for i in range(12, 25):
+        if j < maze.width:  # Ensure we don't go out of bounds
+            maze.contents[3][j] = hole_colour  # Horizontal path
+            maze.contents[10][j] = hole_colour  # Another horizontal path
+
+    for i in range(3, 10):
+        maze.contents[i][15] = hole_colour  # Vertical connector
+        maze.contents[i][20] = hole_colour  # Another vertical connector
+
+    # Save maze to file
+    maze.save_to_txt("maze-depth-better.txt")
+
+
+    # <==== insert your code above here
