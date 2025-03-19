@@ -225,3 +225,28 @@ def create_maze_depth_better():
 
 
     # <==== insert your code above here
+wall_colour= 0.0
+hole_colour = 1.0
+
+def create_maze_breaks_depthfirst():
+    # ====> insert your code below here
+    #remember to comment out any mention of show_maze() before you submit your work
+    # Create maze that breaks depth-first search
+    maze = Maze(mazefile="maze.txt")
+    maze.contents[2][10] = hole_colour
+    maze.save_to_txt("maze-breaks-depthfirst.txt")
+
+    # <==== insert your code above here
+
+def create_maze_depth_better():
+    # ====> insert your code below here
+    #remember to comment out any mention of show_maze() before you submit your work
+    # Create maze where depth-first is more efficient
+    maze = Maze(mazefile="maze.txt")
+
+    # Create a hole in the wall, one place to the right of the entrance, three blocks down
+    maze.contents[2][10] = hole_colour
+    maze.save_to_txt("maze-depth-better.txt")
+
+
+    # <==== insert your code above here
