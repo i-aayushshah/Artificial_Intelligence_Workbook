@@ -30,37 +30,61 @@ def cluster_and_visualise(datafile_name:str, K:int, feature_names:list):
 
     # create a K-Means cluster model with  the specified number of clusters
     cluster_model = KMeans(n_clusters=K, n_init=10)
-    # fit the model to the data
     cluster_model.fit(data)
-    # Predict the cluster for each data point
-    cluster_labels = cluster_model.predict(data)
-
-    # Create the scatter plot and title
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.scatter(data[:, 0], data[:, 1], c=cluster_labels, cmap='viridis', s=50, marker='o')
-    title = fig.suptitle(f"Visualisation of {K} clusters by <your_username>", fontsize=15)
-
-    # Add axis labels
-    ax.set_xlabel(feature_names[0], fontsize=12)
-    ax.set_ylabel(feature_names[1], fontsize=12)
-
-    # Add grid lines for better readability
-    ax.grid(True)
+    cluster_ids = cluster_model.predict(data)
 
     # create a canvas(fig) and axes to hold your visualisation
-    # Save the plot to a file
-    fig.savefig('myVisualisation.jpg')
+    # Find the number of features
+    num_feat = data.shape[1]
+
+    # Create the plot with a grid of subplots (one for each feature pair)
+    fig, ax = plt.subplots(num_feat, num_feat, figsize=(12, 12))
+    plt.set_cmap('viridis')  # set the color map for better visualization
+
 
     # make the visualisation
+    # Get colors for histogram
+    import matplotlib as mpl
+    hist_col = plt.get_cmap('viridis', K).colors
+
+    # Loop over each pair of features
+    for feature1 in range(num_feat):
+        # Set the label for the axis
+        ax[feature1, 0].set_ylabel(feature_names[feature1])
+        ax[0, feature1].set_xlabel(feature_names[feature1])
+        ax[0, feature1].xaxis.set_label_position('top')
+
+        for feature2 in range(num_feat):
+            # Extract the data for the feature pair
+            x_data = data[:, feature1]
+            y_data = data[:, feature2]
+
+            # Create scatter plot for off-diagonal elements
+            if feature1 != feature2:
+                ax[feature1, feature2].scatter(x_data, y_data, c=cluster_ids)
+            else:
+                # Sort the labels and data so that classes are in order
+                inds = np.argsort(cluster_ids)
+                sorted_y = cluster_ids[inds]
+                sorted_x = x_data[inds]
+
+                # Split the data into different classes
+                splits = np.split(sorted_x, np.unique(sorted_y, return_index=True)[1][1:])
+
+                # Plot the histogram
+                for i, split in enumerate(splits):
+                    ax[feature1, feature2].hist(split, bins=20, color=hist_col[i], edgecolor='black')
+
     # remember to put your user name into the title as specified
+    username = "Aayush Shah"  # Replace with your UWE username
+    fig.suptitle(f'Visualisation of {K} clusters by {username}', fontsize=16, y=0.925)
 
 
     # save it to file as specified
+    fig.savefig('myVisualisation.jpg')
 
-    # if you don't delete the line below there will be problem!
-    raise NotImplementedError("Complete the function")
+    
 
     return fig,ax
-    cluster_and_visualise('iris_data.csv', 3, feature_names)
 
     # <==== insert your code above here
