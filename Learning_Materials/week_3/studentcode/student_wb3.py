@@ -160,93 +160,45 @@ hole_colour = 1.0
 def create_maze_breaks_depthfirst():
     # ====> insert your code below here
     #remember to comment out any mention of show_maze() before you submit your work
-    # Create maze that breaks depth-first search
+
+     # Load base maze
     maze = Maze(mazefile="maze.txt")
 
-    # Create a very deep path that leads to a dead end
-    # This will cause DFS to waste all its trials exploring this path
-    for i in range(2, 19):
-        maze.contents[i][10] = hole_colour  # Create a long vertical path downward
+    maze.contents[3][4] = hole_colour  # Open path to trick DFS
+    maze.contents[8][4] = wall_colour  # Block DFS at the end
 
-    # Make the goal unreachable via the deep path
-    maze.contents[19][10] = wall_colour  # Block the path at the bottom
+    maze.contents[10][6] = hole_colour  # Another DFS trap
+    maze.contents[14][6] = wall_colour  # Dead-end
+    maze.contents[16][1] = hole_colour  # Dead-end
+    maze.contents[19][4] = hole_colour  # Dead-end
 
-    # Create an alternative longer path that leads to the goal
-    for i in range(11, 19):
-        maze.contents[2][i] = hole_colour  # Horizontal path
+    maze.contents[8][1] = hole_colour
+    maze.contents[12][9] = wall_colour
+    maze.contents[11][12] = wall_colour
+    maze.contents[9][2] = wall_colour
+    maze.contents[10][19] = wall_colour
+    maze.contents[18][5] = wall_colour
 
-    for i in range(3, 19):
-        maze.contents[i][19] = hole_colour  # Vertical path on the right side
-
-    # Create path to goal
-    maze.contents[19][11] = hole_colour
-    maze.contents[19][12] = hole_colour
-    maze.contents[20][12] = hole_colour
-
-    # Save maze to file
+    # Save the maze
     maze.save_to_txt("maze-breaks-depth.txt")
 
-    # <==== insert your code above here
+    # reload into new maze object
+    print('this is the reloaded maze')
+    reloaded_maze = Maze(mazefile="maze-breaks-depth.txt")
 
 def create_maze_depth_better():
     # ====> insert your code below here
     #remember to comment out any mention of show_maze() before you submit your work
-    # Create maze where depth-first is more efficient
-    maze = Maze(mazefile="maze.txt")
 
-    # Create a direct path to the goal
-    # Position the path so it aligns with depth-first search's preference
-    # for exploring certain directions first
-
-    # Clear existing obstacles near the start
-    for i in range(5):
-        for j in range(9, 15):
-            if i > 0:  # Don't modify the top wall
-                maze.contents[i][j] = hole_colour
-
-    # Create a path that depth-first will find quickly
-    # This assumes depth-first prioritizes going down and right
-    for i in range(1, 21):
-        maze.contents[i][11] = hole_colour  # Create a direct vertical path
-
-    # Add some extra paths that will distract breadth-first
-    # but won't affect depth-first as much
-    for i in range(12, 25):
-        if j < maze.width:  # Ensure we don't go out of bounds
-            maze.contents[3][j] = hole_colour  # Horizontal path
-            maze.contents[10][j] = hole_colour  # Another horizontal path
-
-    for i in range(3, 10):
-        maze.contents[i][15] = hole_colour  # Vertical connector
-        maze.contents[i][20] = hole_colour  # Another vertical connector
-
-    # Save maze to file
-    maze.save_to_txt("maze-depth-better.txt")
-
-
-    # <==== insert your code above here
-wall_colour= 0.0
-hole_colour = 1.0
-
-def create_maze_breaks_depthfirst():
     # ====> insert your code below here
     #remember to comment out any mention of show_maze() before you submit your work
-    # Create maze that breaks depth-first search
     maze = Maze(mazefile="maze.txt")
-    maze.contents[2][10] = hole_colour
-    maze.save_to_txt("maze-breaks-depthfirst.txt")
-
-    # <==== insert your code above here
-
-def create_maze_depth_better():
-    # ====> insert your code below here
-    #remember to comment out any mention of show_maze() before you submit your work
-    # Create maze where depth-first is more efficient
-    maze = Maze(mazefile="maze.txt")
-
-    # Create a hole in the wall, one place to the right of the entrance, three blocks down
-    maze.contents[2][10] = hole_colour
+    maze.contents[1][8] = wall_colour
+    maze.contents[9][10] = wall_colour
+    maze.contents[15][6] = wall_colour
+    maze.contents[13][2] = wall_colour
+    maze.contents[12][13] = wall_colour
+    maze.contents[2][13] = wall_colour
     maze.save_to_txt("maze-depth-better.txt")
-
 
     # <==== insert your code above here
