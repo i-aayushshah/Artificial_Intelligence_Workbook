@@ -12,23 +12,25 @@ def exhaustive_search_4tumblers(puzzle: CombinationProblem) -> list:
     my_attempt = CandidateSolution()
 
     # ====> insert your code below here
-    for digit1 in puzzle.value_set:
-        for digit2 in puzzle.value_set:
-            for digit3 in puzzle.value_set:
-                for digit4 in puzzle.value_set:
-                    # Set the current combination
+    # Iterate through all possible values for each of the 4 tumblers
+    for digit1 in puzzle.value_set:  # First tumbler
+        for digit2 in puzzle.value_set:  # Second tumbler
+            for digit3 in puzzle.value_set:  # Third tumbler
+                for digit4 in puzzle.value_set:  # Fourth tumbler
+                    # Set the candidate solution with the current combination
                     my_attempt.variable_values = [digit1, digit2, digit3, digit4]
 
+                    # Try evaluating the current combination
                     try:
-                        # Evaluate if this combination is correct
                         result = puzzle.evaluate(my_attempt.variable_values)
-
-                        # If result is 1, we found the correct combination
+                        # If the result is 1, this is the correct combination
                         if result == 1:
                             return my_attempt.variable_values
-                    except ValueError:
-                        # Skip invalid combinations
+                    except ValueError as e:
+                        # Handle invalid guesses (though unlikely with value_set)
+                        print(f"Invalid guess: {e}")
                         continue
+
 
     # <==== insert your code above here
 
@@ -38,34 +40,13 @@ def exhaustive_search_4tumblers(puzzle: CombinationProblem) -> list:
 def get_names(namearray: np.ndarray) -> list:
     family_names = []
     # ====> insert your code below here
-    for name in namearray:
-        family_names.append(name[-6:])
-        return family_names
-
-
-    # <==== insert your code above here
-    return family_names
-
-def get_names(namearray: np.ndarray) -> list:
-    family_names = []
-    # ====> insert your code below here
-    for name in namearray:
-        family_names.append(name[-6:])
-        return family_names
-
-
-    # <==== insert your code above here
-    return family_names
-
-def get_names(namearray: np.ndarray) -> list:
-    family_names = []
-    # ====> insert your code below here
-    for i in range(namearray.shape[0]):
-        # Extract the last 6 characters for each name (family name)
-        family_name_chars = namearray[i, -6:]
-        # Join the characters to form a string
-        family_name = ''.join(family_name_chars)
-        # Add it to our list
+    # Iterate over each row of the array
+    for row in range(namearray.shape[0]):
+        # Slice the last 6 characters of the current row
+        family_name_array = namearray[row, -6:]
+        # Join the characters into a single string
+        family_name = "".join(family_name_array)
+        # Append the string to the list of family names
         family_names.append(family_name)
     # <==== insert your code above here
     return family_names
@@ -91,16 +72,16 @@ def check_sudoku_array(attempt: np.ndarray) -> int:
         col = attempt[:, j]
         slices.append(col)
 
-    # Add all 3x3 sub-squares to the slices list
-    for i in range(0, 9, 3):
-        for j in range(0, 9, 3):
-            square = attempt[i:i+3, j:j+3].flatten()  # Flatten to 1D array
-            slices.append(square)
+    # Add all 9 3x3 sub-squares to slices
+    for i in range(0, 9, 3):  # Step by 3 to cover rows 0-2, 3-5, 6-8
+        for j in range(0, 9, 3):  # Step by 3 to cover columns 0-2, 3-5, 6-8
+            sub_square = attempt[i:i+3, j:j+3]
+            slices.append(sub_square)
 
-    for slice in slices:  # easiest way to iterate over list
-        # Get number of unique values in slice
+    # Check each slice for 9 unique values
+    for slice in slices:
+        # Get unique values in the slice
         unique_values = np.unique(slice)
-
         # If there are exactly 9 unique values, increment tests_passed
         if len(unique_values) == 9:
             tests_passed += 1
