@@ -133,7 +133,7 @@ dmypy.json
 .DS_Store
 
 #aiml stuff
-.aiml
+
 
 # zip files
 .zip
@@ -148,7 +148,7 @@ studentcode/*
 student-responses.txt
 student-feedback.txt
 Learning_Materials/week_5/clusterandvisualise.py
-**/*.aiml
+
 
 workbook*old*.ipynb
 Mindview/

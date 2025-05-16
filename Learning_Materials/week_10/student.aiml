@@ -1,0 +1,117 @@
+<aiml>
+        AIML (Artificial Intelligence Markup Language) script for handling knowledge-related queries.
+        This script defines patterns and templates for answering questions about types of knowledge,
+        providing examples, and handling context-sensitive follow-ups. It includes redirects for
+        alternative phrasings and supports variations in user input (e.g., "mybot", "please").
+
+        Author: Aayush Shah
+        Date: May 02, 2025
+    -->
+
+    <!-- Core Definitions Section -->
+    <!-- Handles "WHAT IS <concept>" queries with predefined responses for knowledge-related terms -->
+    <category>
+        <pattern>WHAT IS *</pattern>
+        <template>
+            <!-- Store the queried concept in lowercase for case-insensitive matching -->
+            <think><set name="concept"><lowercase><star/></lowercase></set></think>
+            <condition name="concept">
+                <li value="long-term knowledge">Long-term knowledge is valid over a period of time.</li>
+                <li value="short-term knowledge">Short-term knowledge is only valid for a particular situation or run of a programme.</li>
+                <li value="generic knowledge">Generic knowledge is relevant to more than one application or domain.</li>
+                <li value="domain-specific knowledge">Domain-specific knowledge is only applicable to one specific application or domain.</li>
+                <li value="a fact">A fact is a statement which asserts that a relationship holds for an object-subject pair.</li>
+                <li value="a rule">A rule is a statement that generates new knowledge by asserting that if one fact is true, then another is also true.</li>
+                <!-- Redirect "a rule mybot" to the generic "a rule" definition -->
+                <li value="a rule mybot"><srai>WHAT IS a rule</srai></li>
+                <li value="the way that aiml allows variables in its long-term knowledge">AIML has wildcards and srai for that purpose.</li>
+                <li value="the way aiml supports context during a conversation">AIML supports context through the use of the that tag to refer to previous bot answers, and via setting variables such as topic.</li>
+            </condition>
+        </template>
+    </category>
+
+    <!-- Examples Section -->
+    <!-- Handles "GIVE ME AN EXAMPLE OF <concept>" queries with specific examples -->
+    <category>
+        <pattern>GIVE ME AN EXAMPLE OF *</pattern>
+        <template>
+            <!-- Store the requested example type in lowercase for case-insensitive matching -->
+            <think><set name="example"><lowercase><star/></lowercase></set></think>
+            <condition name="example">
+                <li value="long-term generic knowledge">Generative AI frequently hallucinates and produces incorrect results.</li>
+                <li value="long-term domain-specific knowledge">The formal specification of a particular machine learning algorithm.</li>
+                <li value="short-term generic knowledge">The date today is an example as it may be useful in different contexts but only lasts 24 hours.</li>
+                <li value="short-term domain-specific knowledge">The deadline for the submission of this portfolio.</li>
+                <li value="a fact">Submissions for this module are run through automatic and effective plagiarism checks.</li>
+                <li value="a rule">If submitsOthersWork(X) then commitsAssessmentOffence(X).</li>
+            </condition>
+        </template>
+    </category>
+
+    <!-- Context-Sensitive Questions Section -->
+    <!-- Handles "WHY IS KNOWING THAT USEFUL" follow-ups based on the bot's previous response -->
+    <category>
+        <pattern>WHY IS KNOWING THAT USEFUL</pattern>
+        <that>SUBMISSIONS FOR THIS MODULE ARE RUN THROUGH AUTOMATIC AND EFFECTIVE PLAGIARISM CHECKS</that>
+        <template>To remind you that we take assessment offences very seriously.</template>
+    </category>
+
+    <category>
+        <pattern>WHY IS KNOWING THAT USEFUL</pattern>
+        <that>AIML HAS WILDCARDS AND SRAI FOR THAT PURPOSE</that>
+        <template>Because it allows us to make statements that apply to classes of things or questions.</template>
+    </category>
+
+    <category>
+        <pattern>WHY IS KNOWING THAT USEFUL</pattern>
+        <that>AIML SUPPORTS CONTEXT THROUGH THE USE OF THE THAT TAG TO REFER TO PREVIOUS BOT ANSWERS AND VIA SETTING VARIABLES SUCH AS TOPIC</that>
+        <template>Because some words like that and it can only be understood in the context of previous sentences.</template>
+    </category>
+
+    <!-- Definition Redirects Section -->
+    <!-- Redirects alternative phrasings like "GIVE ME A DEFINITION OF" to "WHAT IS" -->
+    <category>
+        <pattern>GIVE ME A DEFINITION OF *</pattern>
+        <template><srai>WHAT IS <star/></srai></template>
+    </category>
+
+    <category>
+        <pattern>TELL ME ABOUT *</pattern>
+        <template><srai>WHAT IS <star/></srai></template>
+    </category>
+
+    <!-- Example Redirects Section -->
+    <!-- Redirects "ILLUSTRATE THE CONCEPT OF" to "GIVE ME AN EXAMPLE OF" -->
+    <category>
+        <pattern>ILLUSTRATE THE CONCEPT OF *</pattern>
+        <template><srai>GIVE ME AN EXAMPLE OF <star/></srai></template>
+    </category>
+
+    <!-- Flexible Input Handling Section -->
+    <!-- Handles variations in user input, including "mybot", "please", and "provide" -->
+    <category>
+        <pattern>*</pattern>
+        <template>
+            <!-- Store the full input in lowercase for flexible matching -->
+            <think><set name="input"><lowercase><star/></lowercase></set></think>
+            <condition name="input">
+                <!-- Handle specific variations with redirects to standard patterns -->
+                <li value="please mybot what is a rule"><srai>WHAT IS a rule</srai></li>
+                <li value="mybot please give me a definition of a rule"><srai>WHAT IS a rule</srai></li>
+                <li value="what is a rule mybot"><srai>WHAT IS a rule</srai></li>
+                <li value="provide an example of long-term generic knowledge"><srai>GIVE ME AN EXAMPLE OF long-term generic knowledge</srai></li>
+                <li value="provide an example of long-term domain-specific knowledge"><srai>GIVE ME AN EXAMPLE OF long-term domain-specific knowledge</srai></li>
+                <li value="provide an example of short-term generic knowledge"><srai>GIVE ME AN EXAMPLE OF short-term generic knowledge</srai></li>
+                <li value="provide an example of short-term domain-specific knowledge"><srai>GIVE ME AN EXAMPLE OF short-term domain-specific knowledge</srai></li>
+                <li value="provide an example of a rule"><srai>GIVE ME AN EXAMPLE OF a rule</srai></li>
+                <li value="please provide an example of a rule"><srai>GIVE ME AN EXAMPLE OF a rule</srai></li>
+                <li value="please give me an example of a rule"><srai>GIVE ME AN EXAMPLE OF a rule</srai></li>
+                <li value="provide an example of a fact"><srai>GIVE ME AN EXAMPLE OF a fact</srai></li>
+                <li value="please provide an example of a fact"><srai>GIVE ME AN EXAMPLE OF a fact</srai></li>
+                <!-- Fallback: Pass the input as-is to other patterns -->
+                <li><srai><star/></srai></li>
+            </condition>
+        </template>
+    </category>
+
+</aiml>
